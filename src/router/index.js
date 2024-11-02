@@ -20,7 +20,7 @@ const router = createRouter({
 router.beforeEach((to,
                    from,
                    next) => {
-   let baseTitle = 'ACME Learning Center';
+   let baseTitle = 'TelaSecure';
    document.title = `${baseTitle} | ${to.meta['title']}`;
    next();
 });
