@@ -9,12 +9,11 @@ import StoreroomManagementComponent from "../facilities/pages/storeroom-manageme
 const router = createRouter({
     history: createWebHistory(),
     routes: [
-        { path: '/home',                    name: 'home',       component: HomeComponent,               meta: { title: 'Home'}},
         { path: '/publishing/categories',   name: 'categories', component: CategoryManagementComponent, meta: { title: 'Categories'}},
         { path: '/reportes-y-analisis',        name: 'analisis',   component: ReportAnalisisComponent,    meta: { title: 'Analisis'}},
         { path: '/temperature',             name: 'temperature', component: TemperatureComponent, meta: { title: 'Temperature' }}, // Agrega esta línea
         { path: '/management',             name: 'deposit', component: StoreroomManagementComponent, meta: { title: 'DepositManagement' }}, // Agrega esta línea
-        { path: '/',                        redirect: '/home' }
+        { path: '/',                        redirect: '/deposit' }
     ]
 });
 
