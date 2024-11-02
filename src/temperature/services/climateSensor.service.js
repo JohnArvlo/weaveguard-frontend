@@ -1,7 +1,7 @@
 import http from "../../shared/services/http-common.js";
 
 export class ClimateSensorService {
-    resourceEndpoint = '/climatesensors';
+    resourceEndpoint = '/climateSensors';
 
     getAll() {
         return http.get(this.resourceEndpoint);

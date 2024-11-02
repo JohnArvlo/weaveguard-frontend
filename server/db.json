@@ -33,6 +33,284 @@
       "quantity": 10
     }
   ],
+  "reports": [
+    {
+      "id": 1,
+      "name": "Warehouse A",
+      "location": "Warehouse Address",
+      "description": "Main storage for high-demand fabrics",
+      "capacity": 1000,
+      "contact": {
+        "phone": "123-456-7890",
+        "email": "contact@example.com"
+      },
+      "temperature": {
+        "actual": 12.5,
+        "maximum": 28,
+        "minimum": 18,
+        "unit": "Celsius"
+      },
+      "humidity": {
+        "actual": 45,
+        "maximum": 60,
+        "minimum": 30,
+        "unit": "percent"
+      }
+    },
+    {
+      "id": 2,
+      "name": "Warehouse B",
+      "location": "Second Warehouse Location",
+      "description": "Storage for delicate fabrics",
+      "capacity": 800,
+      "contact": {
+        "phone": "987-654-3210",
+        "email": "contactb@example.com"
+      },
+      "temperature": {
+        "actual": 18,
+        "maximum": 25,
+        "minimum": 15,
+        "unit": "Celsius"
+      },
+      "humidity": {
+        "actual": 40,
+        "maximum": 55,
+        "minimum": 25,
+        "unit": "percent"
+      }
+    },
+    {
+      "id": 1,
+      "name": "Warehouse A",
+      "location": "Warehouse Address",
+      "description": "Main storage for high-demand fabrics",
+      "capacity": 1000,
+      "contact": {
+        "phone": "123-456-7890",
+        "email": "contact@example.com"
+      },
+      "temperature": {
+        "actual": 12.5,
+        "maximum": 28,
+        "minimum": 18,
+        "unit": "Celsius"
+      },
+      "humidity": {
+        "actual": 45,
+        "maximum": 60,
+        "minimum": 30,
+        "unit": "percent"
+      }
+    },
+    {
+      "id": 2,
+      "name": "Warehouse B",
+      "location": "Second Warehouse Location",
+      "description": "Storage for delicate fabrics",
+      "capacity": 800,
+      "contact": {
+        "phone": "987-654-3210",
+        "email": "contactb@example.com"
+      },
+      "temperature": {
+        "actual": 18,
+        "maximum": 25,
+        "minimum": 15,
+        "unit": "Celsius"
+      },
+      "humidity": {
+        "actual": 40,
+        "maximum": 55,
+        "minimum": 25,
+        "unit": "percent"
+      }
+    },
+    {
+      "id": 1,
+      "name": "Warehouse A",
+      "location": "Warehouse Address",
+      "description": "Main storage for high-demand fabrics",
+      "capacity": 1000,
+      "contact": {
+        "phone": "123-456-7890",
+        "email": "contact@example.com"
+      },
+      "temperature": {
+        "actual": 12.5,
+        "maximum": 28,
+        "minimum": 18,
+        "unit": "Celsius"
+      },
+      "humidity": {
+        "actual": 45,
+        "maximum": 60,
+        "minimum": 30,
+        "unit": "percent"
+      }
+    },
+    {
+      "id": 2,
+      "name": "Warehouse B",
+      "location": "Second Warehouse Location",
+      "description": "Storage for delicate fabrics",
+      "capacity": 800,
+      "contact": {
+        "phone": "987-654-3210",
+        "email": "contactb@example.com"
+      },
+      "temperature": {
+        "actual": 18,
+        "maximum": 25,
+        "minimum": 15,
+        "unit": "Celsius"
+      },
+      "humidity": {
+        "actual": 40,
+        "maximum": 55,
+        "minimum": 25,
+        "unit": "percent"
+      }
+    },
+    {
+      "id": 1,
+      "name": "Warehouse A",
+      "location": "Warehouse Address",
+      "description": "Main storage for high-demand fabrics",
+      "capacity": 1000,
+      "contact": {
+        "phone": "123-456-7890",
+        "email": "contact@example.com"
+      },
+      "temperature": {
+        "actual": 12.5,
+        "maximum": 28,
+        "minimum": 18,
+        "unit": "Celsius"
+      },
+      "humidity": {
+        "actual": 45,
+        "maximum": 60,
+        "minimum": 30,
+        "unit": "percent"
+      }
+    },
+    {
+      "id": 2,
+      "name": "Warehouse B",
+      "location": "Second Warehouse Location",
+      "description": "Storage for delicate fabrics",
+      "capacity": 800,
+      "contact": {
+        "phone": "987-654-3210",
+        "email": "contactb@example.com"
+      },
+      "temperature": {
+        "actual": 18,
+        "maximum": 25,
+        "minimum": 15,
+        "unit": "Celsius"
+      },
+      "humidity": {
+        "actual": 40,
+        "maximum": 55,
+        "minimum": 25,
+        "unit": "percent"
+      }
+    },
+    {
+      "id": 2,
+      "name": "Warehouse B",
+      "location": "Second Warehouse Location",
+      "description": "Storage for delicate fabrics",
+      "capacity": 800,
+      "contact": {
+        "phone": "987-654-3210",
+        "email": "contactb@example.com"
+      },
+      "temperature": {
+        "actual": 18,
+        "maximum": 25,
+        "minimum": 15,
+        "unit": "Celsius"
+      },
+      "humidity": {
+        "actual": 40,
+        "maximum": 55,
+        "minimum": 25,
+        "unit": "percent"
+      }
+    },
+    {
+      "id": 1,
+      "name": "Warehouse A",
+      "location": "Warehouse Address",
+      "description": "Main storage for high-demand fabrics",
+      "capacity": 1000,
+      "contact": {
+        "phone": "123-456-7890",
+        "email": "contact@example.com"
+      },
+      "temperature": {
+        "actual": 12.5,
+        "maximum": 28,
+        "minimum": 18,
+        "unit": "Celsius"
+      },
+      "humidity": {
+        "actual": 45,
+        "maximum": 60,
+        "minimum": 30,
+        "unit": "percent"
+      }
+    },
+    {
+      "id": 1,
+      "name": "Warehouse A",
+      "location": "Warehouse Address",
+      "description": "Main storage for high-demand fabrics",
+      "capacity": 1000,
+      "contact": {
+        "phone": "123-456-7890",
+        "email": "contact@example.com"
+      },
+      "temperature": {
+        "actual": 12.5,
+        "maximum": 28,
+        "minimum": 18,
+        "unit": "Celsius"
+      },
+      "humidity": {
+        "actual": 45,
+        "maximum": 60,
+        "minimum": 30,
+        "unit": "percent"
+      }
+    },
+    {
+      "id": 2,
+      "name": "Warehouse B",
+      "location": "Second Warehouse Location",
+      "description": "Storage for delicate fabrics",
+      "capacity": 800,
+      "contact": {
+        "phone": "987-654-3210",
+        "email": "contactb@example.com"
+      },
+      "temperature": {
+        "actual": 18,
+        "maximum": 25,
+        "minimum": 15,
+        "unit": "Celsius"
+      },
+      "humidity": {
+        "actual": 40,
+        "maximum": 55,
+        "minimum": 25,
+        "unit": "percent"
+      }
+    }
+  ],
   "storerooms": [
     {
       "id": 1,

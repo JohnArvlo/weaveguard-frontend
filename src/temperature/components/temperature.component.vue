@@ -8,12 +8,14 @@ import {ClimateSensorService} from "../services/climateSensor.service.js";
 import {EnviroDevice} from "../model/enviroDevice.entity.js";
 import {EnviroDeviceService} from "../services/enviroDevice.service.js";
 
+import { ReportService } from "../../reports/services/report.service.js";
 
 export default {
   data() {
     return {
       storerooms: [],
-      storeroomService: null,
+      storeroomService: new StoreroomService(),
+      reportService: new ReportService(),
       climateSensorService: null,
       enviroDeviceService: null,
       thermometers: [],
@@ -65,6 +67,24 @@ export default {
           .catch(error => {
             console.error('Error updating storeroom:', error);
           });
+    },
+    async saveReport(storeroom) {
+      const report = {
+        id: storeroom.id,
+        name: storeroom.name,
+        location: storeroom.location,
+        description: storeroom.description,
+        capacity: storeroom.capacity,
+        contact: storeroom.contact,
+        temperature: storeroom.temperature,
+        humidity: storeroom.humidity,
+      };
+      try {
+        await this.reportService.createReport(report);
+        console.log('Report saved successfully');
+      } catch (error) {
+        console.error('Error saving report:', error);
+      }
     }
   },
   created() {
@@ -76,8 +96,8 @@ export default {
     // Cargar almacenes
     this.storeroomService.getAll()
         .then(response => {
-          this.storerooms = response.data.map(storeroom => new Storeroom(storeroom));
-          console.log(this.storerooms);
+          this.storerooms = response.data;
+          this.storerooms.forEach(storeroom => this.saveReport(storeroom));
         })
         .catch(error => console.error(error));
 
@@ -101,7 +121,6 @@ export default {
   }
 };
 </script>
-
 
 <template>
 

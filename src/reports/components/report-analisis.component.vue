@@ -9,10 +9,10 @@ export default {
   data() {
     return {
       selectedWarehouse: null,
-      warehouses: [],
+      reports: [],
       irregularities: 'No se encontraron irregularidades',
       temperatureData: {
-        labels: ['Actual'],
+        labels: ['Warehouse A', 'Warehouse B'],
         datasets: [
           {
             label: 'Temperatura (°C)',
@@ -44,25 +44,30 @@ export default {
     },
   },
   methods: {
-    async fetchWarehouses() {
+    async fetchReports() {
       try {
         const response = await axios.get('/server/db.json');
-        this.warehouses = response.data.storerooms;
+        this.reports = response.data.reports;
+        this.updateChartData();
       } catch (error) {
-        console.error('Error fetching warehouses:', error);
+        console.error('Error fetching reports:', error);
       }
     },
-    updateChartData(warehouse) {
-      if (warehouse && warehouse.temperatura && warehouse.humedad) {
-        this.temperatureData.datasets[0].data = [warehouse.temperatura.actual];
-        this.temperatureData.datasets[1].data = [warehouse.humedad.actual];
-      } else {
-        console.error('Datos de temperatura o humedad no encontrados para el almacén seleccionado');
-      }
+    updateChartData() {
+      const temperatureData = [];
+      const humidityData = [];
+
+      this.reports.forEach(report => {
+        temperatureData.push(report.temperature.actual);
+        humidityData.push(report.humidity.actual);
+      });
+
+      this.temperatureData.datasets[0].data = temperatureData;
+      this.temperatureData.datasets[1].data = humidityData;
     },
   },
   created() {
-    this.fetchWarehouses();
+    this.fetchReports();
   },
 };
 </script>
@@ -77,8 +82,8 @@ export default {
       <div>
         <label>{{ $t('inventory.storeroom') }}: </label>
         <select v-model="selectedWarehouse">
-          <option v-for="warehouse in warehouses" :key="warehouse.id" :value="warehouse">
-            {{ warehouse.nombre}}
+          <option v-for="report in reports" :key="report.id" :value="report">
+            {{ report.name }}
           </option>
         </select>
       </div>

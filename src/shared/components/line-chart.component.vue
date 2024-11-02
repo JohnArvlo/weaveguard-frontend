@@ -1,6 +1,6 @@
 <script setup>
-import { ref, watch, onMounted } from 'vue';
-import { Line } from 'vue-chartjs';
+import {ref, watch, onMounted} from 'vue';
+import {Line} from 'vue-chartjs';
 import {
   Chart as ChartJS,
   Title,
@@ -14,7 +14,7 @@ import {
 
 ChartJS.register(Title, Tooltip, Legend, LineElement, CategoryScale, LinearScale, PointElement);
 
-import { Chart } from 'chart.js';
+import {Chart} from 'chart.js';
 
 const props = defineProps({
   chartData: {

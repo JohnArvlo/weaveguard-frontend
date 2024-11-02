@@ -1,7 +1,7 @@
 import http from "../../shared/services/http-common.js";
 
 export class EnviroDeviceService {
-    resourceEndpoint = '/envirodevices';
+    resourceEndpoint = '/enviroDevices';
 
     getAll() {
         return http.get(this.resourceEndpoint);
