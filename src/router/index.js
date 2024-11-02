@@ -13,7 +13,7 @@ const router = createRouter({
         { path: '/reportes-y-analisis',        name: 'analisis',   component: ReportAnalisisComponent,    meta: { title: 'Analisis'}},
         { path: '/temperature',             name: 'temperature', component: TemperatureComponent, meta: { title: 'Temperature' }}, // Agrega esta línea
         { path: '/management',             name: 'deposit', component: StoreroomManagementComponent, meta: { title: 'DepositManagement' }}, // Agrega esta línea
-        { path: '/',                        redirect: '/deposit' }
+        { path: '/',                        redirect: '/management' }
     ]
 });
 
