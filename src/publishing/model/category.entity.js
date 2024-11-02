@@ -1,9 +1,11 @@
-export class Category {
-    constructor({ id = '', nombre = '', almacen = '', categoria = '', cantidad = 0 }) {
+export class Fabric {
+    constructor({ id = '', code = '', name = '', storeroomId = '', categoryId = '', quantity = 0 }) {
         this.id = id;
-        this.nombre = nombre;
-        this.almacen = almacen;
-        this.categoria = categoria;
-        this.cantidad = cantidad;
+        this.code = code;
+        this.name = name;
+        this.storeroomId = storeroomId;
+        this.categoryId = categoryId;
+        this.quantity = quantity;
     }
 }
+

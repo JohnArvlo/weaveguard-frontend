@@ -1,8 +1,7 @@
 <script>
 import CreateAndEdit from "../../shared/components/create-and-edit.component.vue";
-
 export default {
-  name: "deposit-create-and-edit",
+  name: "storeroom-create-and-edit",
   components: {CreateAndEdit},
   props: {
     edit: Boolean,
@@ -33,7 +32,7 @@ export default {
 
       :edit="edit"
 
-      entity-name="Deposit"
+      entity-name="Store Room"
       @cancel-requested="onCancelRequested"
       @save-requested="onSaveRequested">
     <template #content>

@@ -1,7 +1,7 @@
 import http from "../../shared/services/http-common.js";
 
-export class CategoryService {
-    resourceEndpoint = '/categories';
+export class FabricService {
+    resourceEndpoint = '/fabrics'; // Cambiado a /fabrics
 
     getAll() {
         return http.get(this.resourceEndpoint);
@@ -11,19 +11,19 @@ export class CategoryService {
         return http.get(`${this.resourceEndpoint}/${id}`);
     }
 
-    create(categoryResource) {
-        return http.post(this.resourceEndpoint, categoryResource);
+    create(fabricResource) { // Cambiado a fabricResource
+        return http.post(this.resourceEndpoint, fabricResource);
     }
 
-    update(id, categoryResource) {
-        return http.put(`${this.resourceEndpoint}/${id}`, categoryResource);
+    update(id, fabricResource) { // Cambiado a fabricResource
+        return http.put(`${this.resourceEndpoint}/${id}`, fabricResource);
     }
 
     delete(id) {
         return http.delete(`${this.resourceEndpoint}/${id}`);
     }
 
-    findByName(name) {
-        return http.get(`${this.resourceEndpoint}?name=${name}`);
+    findByCode(code) { // Cambiado a findByCode
+        return http.get(`${this.resourceEndpoint}?code=${code}`); // Cambiado a code
     }
 }

@@ -1,407 +1,125 @@
 {
-  "categories": [
+  "fabrics": [
+    {
+      "id": 1,
+      "code": "A001",
+      "name": "Cotton Fabric",
+      "storeroomId": 1,
+      "categoryId": 2,
+      "quantity": 120
+    },
     {
       "id": 2,
-      "codigo": "A002",
-      "nombre": "Tela Poliéster",
-      "almacen": "Almacén Norte",
-      "categoria": "Poliéster",
-      "cantidad": 80
+      "code": "A002",
+      "name": "Polyester Fabric",
+      "storeroomId": 1,
+      "categoryId": 1,
+      "quantity": 80
     },
     {
       "id": 3,
-      "codigo": "A003",
-      "nombre": "Tela Lino",
-      "almacen": "Almacén Sur",
-      "categoria": "Lino",
-      "cantidad": 50
+      "code": "A003",
+      "name": "Wool Fabric",
+      "storeroomId": 2,
+      "categoryId": 3,
+      "quantity": 50
     },
     {
       "id": 4,
-      "codigo": "A004",
-      "nombre": "Tela Seda",
-      "almacen": "Almacén Este",
-      "categoria": "Seda",
-      "cantidad": 30
-    },
-    {
-      "id": 5,
-      "name": "a"
+      "code": "A004",
+      "name": "TelaDura",
+      "storeroomId": "1",
+      "categoryId": "2",
+      "quantity": 10
     }
   ],
   "storerooms": [
     {
       "id": 1,
-      "nombre": "Almacén A",
-      "temperatura": {
-        "actual": 12.5,
-        "maxima": 28,
-        "minima": 18,
-        "unidad": "Celsius"
+      "name": "Warehouse A",
+      "location": "Warehouse Address",
+      "description": "Main storage for high-demand fabrics",
+      "capacity": 1000,
+      "contact": {
+        "phone": "123-456-7890",
+        "email": "contact@example.com"
       },
-      "humedad": {
-        "actual": 45,
-        "maxima": 60,
-        "minima": 30,
-        "unidad": "%"
-      }
-    },
-    {
-      "id": 2,
-      "nombre": "Almacén B",
-      "temperatura": {
-        "actual": 28,
-        "maxima": 26.5,
-        "minima": 19.5,
-        "unidad": "Celsius"
-      },
-      "humedad": {
-        "actual": 67,
-        "maxima": 65,
-        "minima": 35,
-        "unidad": "%"
-      }
-    },
-    {
-      "id": 3,
-      "nombre": "Almacén C",
-      "temperatura": {
-        "actual": 21,
-        "maxima": 25,
-        "minima": 17,
-        "unidad": "Celsius"
-      },
-      "humedad": {
-        "actual": 33,
-        "maxima": 70,
-        "minima": 40,
-        "unidad": "%"
-      }
-    }
-  ],
-  "thermometers": [
-    {
-      "id": 1,
-      "name": "Thermometer Pro",
-      "model": "TP-100",
-      "storeroom": 1
-    },
-    {
-      "id": 2,
-      "name": "Thermometer A+",
-      "model": "DT-101",
-      "storeroom": 2
-    },
-    {
-      "id": 3,
-      "name": "Digital Thermometer",
-      "model": "DT-102",
-      "storeroom": 3
-    }
-  ],
-  "hygrometers": [
-    {
-      "id": 1,
-      "name": "Hygrometer Max",
-      "model": "HM-200",
-      "storeroom": 1
-    },
-    {
-      "id": 2,
-      "name": "Hygrometer A+",
-      "model": "HR-201",
-      "storeroom": 2
-    },
-    {
-      "id": 3,
-      "name": "Smart Hygrometer",
-      "model": "SH-202",
-      "storeroom": 3
-    }
-  ],
-  "heaters": [
-    {
-      "id": 1,
-      "name": "Heater Pro",
-      "model": "HP-300",
-      "storeroom": 1,
-      "temperature": 12.5
-    },
-    {
-      "id": 2,
-      "name": "Heater A+",
-      "model": "HP-150",
-      "storeroom": 2,
-      "temperature": 28
-    },
-    {
-      "id": 3,
-      "name": "Smart Heater",
-      "model": "HP-200",
-      "storeroom": 3,
-      "temperature": 21
-    }
-  ],
-  "humidifiers": [
-    {
-      "id": 1,
-      "name": "Humidifier Pro",
-      "model": "HP-400",
-      "storeroom": 1,
-      "humidity": 55
-    },
-    {
-      "id": 2,
-      "name": "Smart Humidifier",
-      "model": "SH-250",
-      "storeroom": 2,
-      "humidity": 15
-    },
-    {
-      "id": 3,
-      "name": "Humidifier B+",
-      "model": "SH-300",
-      "storeroom": 3,
-      "humidity": 11
-    }
-  ],
-  "fabricTypes": [
-    {
-      "name": "Algodón",
       "temperature": {
-        "maximum": 24,
+        "actual": 12.5,
+        "maximum": 28,
         "minimum": 18,
         "unit": "Celsius"
       },
       "humidity": {
-        "maximum": 50,
+        "actual": 45,
+        "maximum": 60,
         "minimum": 30,
         "unit": "percent"
       }
     },
     {
-      "name": "Poliéster",
-      "temperature": {
-        "maximum": 24,
-        "minimum": 18,
-        "unit": "Celsius"
+      "id": 2,
+      "name": "Warehouse B",
+      "location": "Second Warehouse Location",
+      "description": "Storage for delicate fabrics",
+      "capacity": 800,
+      "contact": {
+        "phone": "987-654-3210",
+        "email": "contactb@example.com"
       },
-      "humidity": {
-        "maximum": 60,
-        "minimum": 40,
-        "unit": "percent"
-      }
-    },
-    {
-      "name": "Lino",
       "temperature": {
+        "actual": 18,
         "maximum": 25,
         "minimum": 15,
         "unit": "Celsius"
       },
       "humidity": {
+        "actual": 40,
         "maximum": 55,
+        "minimum": 25,
+        "unit": "percent"
+      }
+    }
+  ],
+  "fabricTypes": [
+    {
+      "name": "Cotton",
+      "temperature": {
+        "maximum": 24,
+        "minimum": 18,
+        "unit": "Celsius"
+      },
+      "humidity": {
+        "maximum": 50,
+        "minimum": 30,
+        "unit": "percent"
+      }
+    },
+    {
+      "name": "Polyester",
+      "temperature": {
+        "maximum": 30,
+        "minimum": 20,
+        "unit": "Celsius"
+      },
+      "humidity": {
+        "maximum": 60,
         "minimum": 35,
         "unit": "percent"
       }
     },
     {
-      "name": "Seda",
+      "name": "Wool",
       "temperature": {
         "maximum": 22,
-        "minimum": 18,
+        "minimum": 16,
         "unit": "Celsius"
       },
       "humidity": {
-        "maximum": 60,
+        "maximum": 65,
         "minimum": 40,
         "unit": "percent"
       }
-    },
-    {
-      "name": "Rayón",
-      "temperature": {
-        "maximum": 24,
-        "minimum": 18,
-        "unit": "Celsius"
-      },
-      "humidity": {
-        "maximum": 60,
-        "minimum": 40,
-        "unit": "percent"
-      }
-    },
-    {
-      "name": "Denim",
-      "temperature": {
-        "maximum": 24,
-        "minimum": 18,
-        "unit": "Celsius"
-      },
-      "humidity": {
-        "maximum": 50,
-        "minimum": 30,
-        "unit": "percent"
-      }
-    },
-    {
-      "name": "Elastano",
-      "temperature": {
-        "maximum": 24,
-        "minimum": 18,
-        "unit": "Celsius"
-      },
-      "humidity": {
-        "maximum": 60,
-        "minimum": 40,
-        "unit": "percent"
-      }
-    },
-    {
-      "name": "Franela",
-      "temperature": {
-        "maximum": 22,
-        "minimum": 18,
-        "unit": "Celsius"
-      },
-      "humidity": {
-        "maximum": 50,
-        "minimum": 30,
-        "unit": "percent"
-      }
-    },
-    {
-      "name": "Tafetán",
-      "temperature": {
-        "maximum": 24,
-        "minimum": 18,
-        "unit": "Celsius"
-      },
-      "humidity": {
-        "maximum": 60,
-        "minimum": 40,
-        "unit": "percent"
-      }
-    },
-    {
-      "name": "Mezcla de poliéster/algodón",
-      "temperature": {
-        "maximum": 24,
-        "minimum": 18,
-        "unit": "Celsius"
-      },
-      "humidity": {
-        "maximum": 60,
-        "minimum": 40,
-        "unit": "percent"
-      }
-    },
-    {
-      "name": "Lana",
-      "temperature": {
-        "maximum": 30,
-        "minimum": 10,
-        "unit": "Celsius"
-      },
-      "humidity": {
-        "maximum": 70,
-        "minimum": 40,
-        "unit": "percent"
-      }
-    },
-    {
-      "name": "Fleece",
-      "temperature": {
-        "maximum": 28,
-        "minimum": 5,
-        "unit": "Celsius"
-      },
-      "humidity": {
-        "maximum": 60,
-        "minimum": 30,
-        "unit": "percent"
-      }
-    },
-    {
-      "name": "Seda (alta temperatura)",
-      "temperature": {
-        "maximum": 35,
-        "minimum": 18,
-        "unit": "Celsius"
-      },
-      "humidity": {
-        "maximum": 50,
-        "minimum": 30,
-        "unit": "percent"
-      }
-    },
-    {
-      "name": "Vinilo",
-      "temperature": {
-        "maximum": 40,
-        "minimum": 15,
-        "unit": "Celsius"
-      },
-      "humidity": {
-        "maximum": 50,
-        "minimum": 20,
-        "unit": "percent"
-      }
-    },
-    {
-      "name": "Terciopelo",
-      "temperature": {
-        "maximum": 26,
-        "minimum": 12,
-        "unit": "Celsius"
-      },
-      "humidity": {
-        "maximum": 60,
-        "minimum": 30,
-        "unit": "percent"
-      }
-    }
-  ],
-  "deposits": [
-    {
-      "id": 1,
-      "name": "Almacén de Telas Ejemplo",
-      "location": "Dirección del Almacén",
-      "description": "Propósito del almacén y tipo de productos almacenados",
-      "capacity": 1000,
-      "contact": {
-        "phone": "123-456-7890",
-        "email": "contacto@ejemplo.com"
-      },
-      "temperature": {
-        "maximum": 24,
-        "minimum": 18,
-        "unit": "Celsius"
-      },
-      "humidity": {
-        "maximum": 50,
-        "minimum": 30,
-        "unit": "percent"
-      }
-    }
-  ],
-  "assignedFabrics": [
-    {
-      "id": 1,
-      "fabricType": {
-        "name": "Algodón",
-        "temperature": {
-          "maximum": 24,
-          "minimum": 18,
-          "unit": "Celsius"
-        },
-        "humidity": {
-          "maximum": 50,
-          "minimum": 30,
-          "unit": "percent"
-        }
-      },
-      "depositId": "1"
     }
   ],
   "climateSensors": [
@@ -411,7 +129,7 @@
       "model": "TP-100",
       "type": "Thermometer",
       "image": "",
-      "depositId": "1"
+      "storeroomId": "1"
     },
     {
       "id": 2,
@@ -419,7 +137,23 @@
       "model": "HP-100",
       "type": "Hygrometer",
       "image": "",
-      "depositId": "1"
+      "storeroomId": "1"
+    },
+    {
+      "id": 3,
+      "name": "ThermoGuard",
+      "model": "TG-200",
+      "type": "Thermometer",
+      "image": "",
+      "storeroomId": "2"
+    },
+    {
+      "id": 4,
+      "name": "HumidityMaster",
+      "model": "HM-300",
+      "type": "Hygrometer",
+      "image": "",
+      "storeroomId": "2"
     }
   ],
   "enviroDevices": [
@@ -430,7 +164,7 @@
       "value": 55,
       "type": "Heater",
       "unit": "Celsius",
-      "depositId": "1"
+      "storeroomId": "1"
     },
     {
       "id": 2,
@@ -439,7 +173,25 @@
       "value": 35,
       "type": "Humidifier",
       "unit": "percent",
-      "depositId": "1"
+      "storeroomId": "1"
+    },
+    {
+      "id": 3,
+      "name": "HeatMax",
+      "model": "HM-250",
+      "value": 60,
+      "type": "Heater",
+      "unit": "Celsius",
+      "storeroomId": "2"
+    },
+    {
+      "id": 4,
+      "name": "MoistureControl",
+      "model": "MC-550",
+      "value": 40,
+      "type": "Humidifier",
+      "unit": "percent",
+      "storeroomId": "2"
     }
   ]
 }

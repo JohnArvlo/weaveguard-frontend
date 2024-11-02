@@ -27,7 +27,7 @@ export default {
 
 <template>
   <pv-dialog v-bind:visible="visible" :modal="true" :style="getDialogStyle" class="p-fluid"
-             >
+             :closable="false">
     <template #header>
       <h3>TelaSecure</h3>
     </template>

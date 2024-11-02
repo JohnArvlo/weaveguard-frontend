@@ -1,29 +1,34 @@
 <script>
-import {Deposit} from "../model/deposit.entity.js";
-import {DepositService} from "../services/deposit.service.js";
-import DepositList from "../components/deposit-list.component.vue";
+import {Storeroom} from "../model/storeroom.entity.js";
+import {StoreroomService} from "../services/storeroom.service.js";
+import StoreroomList from "../components/storeroom-list.component.vue";
 
-import DepositCreateAndEdit from "../components/deposit-create-and-edit.component.vue";
+import StoreroomCreateAndEdit from "../components/storeroom-create-and-edit.component.vue";
 import {ClimateSensor} from "../model/climateSensor.entity.js";
 import ClimateSensorCreateAndEdit from "../components/climateSensor-create-and-edit.vue";
-import EnviroDeviceCreateAndEditComponent from "../components/enviroDevice-create-and-edit.component.vue";
 import EnviroDeviceCreateAndEdit from "../components/enviroDevice-create-and-edit.component.vue";
 import {EnviroDevice} from "../model/enviroDevice.entity.js";
 
-export default{
-  name: "deposit-management",
+
+
+
+
+export default {
+  name: "storeroom-management",
   components: {
     EnviroDeviceCreateAndEdit,
-    ClimateSensorCreateAndEdit, DepositCreateAndEdit, DepositList,EnviroDeviceCreateAndEditComponent},
-  data(){
-    return{
-      deposit: new Deposit({}),
+    ClimateSensorCreateAndEdit, StoreroomCreateAndEdit, StoreroomList
+  },
+
+  data() {
+    return {
+      storeroom: new Storeroom({}),
       climateSensor: new ClimateSensor({}),
       enviroDevice: new EnviroDevice({}),
-      deposits: [],
+      storerooms: [],
       //Sensor
       sensors: [],
-      depositService:null,
+      storeroomService: null,
       createAndEditDialogIsVisible: false,
       isEdit: false,
       //Sensor Dialog
@@ -38,41 +43,40 @@ export default{
     }
   },
   created() {
-    this.depositService = new DepositService();
-    this.loadDeposits();
+    this.storeroomService = new StoreroomService();
+    this.loadStorerooms();
   },
   methods: {
     findIndexById(id) {
-      return this.deposits.findIndex((category) => category.id === id);
+      return this.storerooms.findIndex((category) => category.id === id);
     },
-
-    loadDeposits()
+    loadStorerooms()
     {
-      this.depositService.getAll().then(response => {
+      this.storeroomService.getAll().then(response => {
         console.log(response.data);
-        this.deposits = response.data.map(deposit => new Deposit(deposit));
-        console.log(this.deposits);
+        this.storerooms = response.data.map(storeroom => new Storeroom(storeroom));
+        console.log(this.storerooms);
       }).catch(error => console.error(error));
     },
-
     onCancelRequested() {
       this.createAndEditDialogIsVisible = false;
       this.submitted = false;
       this.isEdit = false;
     },
-
     //Sensor methods
     onCancelRequestedSensor() {
       this.createAndEditDialogIsVisibleSensor = false;
       this.submittedSensor = false;
       this.isEditSensor = false;
     },
+
     //Device methods
     onCancelRequestedDevice() {
       this.createAndEditDialogIsVisibleDevice = false;
       this.submittedDevice = false;
       this.isEditDevice = false;
     },
+
     //Sensor methods
     onSaveRequestedSensor(item) {
       console.log('onSaveRequestedSensor');
@@ -88,6 +92,7 @@ export default{
         this.isEditSensor = false;
       }
     },
+
     //Device methods
     onSaveRequestedDevice(item) {
       console.log('onSaveRequestedDevice');
@@ -103,84 +108,88 @@ export default{
         this.isEditDevice = false;
       }
     },
+
     //Sensor methods
     createClimateSensor() {
-      console.log(this.deposit.id);
+      console.log(this.storeroom.id);
       console.log(this.climateSensor);
-      this.climateSensor.depositId = toString(this.deposit.id);
-      console.log(this.deposit.id);
+      this.climateSensor.storeroomId = toString(this.storeroom.id);
+      console.log(this.storeroom.id);
       console.log(this.climateSensor);
-      this.depositService.createClimateSensor(this.deposit.id, this.climateSensor).then(response => {
+      this.storeroomService.createClimateSensor(this.storeroom.id, this.climateSensor).then(response => {
         let climateSensor = new ClimateSensor(response.data);
         this.sensors.push(climateSensor);
-        this.loadDeposits(); // Reload the deposits
+        this.loadStorerooms(); // Reload
 
       }).catch(error => console.error(error));
     },
+
     //Device methods
     createEnviroDevice(){
-      this.enviroDevice.depositId = toString(this.deposit.id);
-      this.depositService.createEnviroDevice(this.deposit.id, this.enviroDevice).then(response => {
+      this.enviroDevice.storeroomId = toString(this.storeroom.id);
+      this.storeroomService.createEnviroDevice(this.storeroom.id, this.enviroDevice).then(response => {
         let enviroDevice = new EnviroDevice(response.data);
         this.devices.push(enviroDevice);
-        this.loadDeposits(); // Reload the deposits
+        this.loadStorerooms(); // Reload
       }).catch(error => console.error(error));
     },
 
     onSaveRequested(item) {
       console.log('onSaveRequested');
       this.submitted = true;
-      if (this.deposit.name.trim()) {
+      if (this.storeroom.name.trim()) {
         if (item.id) {
-          this.updateDeposit();
+          this.updateStoreroom();
         } else {
-          this.createDeposit();
+          this.createStoreroom();
         }
         this.createAndEditDialogIsVisible = false;
         this.isEdit = false;
       }
     },
+
     // Service client methods
-    createDeposit() {
-      this.depositService.create(this.deposit).then(response => {
-        let deposit = new Deposit(response.data);
-        this.deposits.push(deposit);
-        this.notifySuccessfulAction("Category created successfully");
+    createStoreroom() {
+      this.storeroomService.create(this.storeroom).then(response => {
+        let storeroom = new Storeroom(response.data);
+        this.storerooms.push(storeroom);
+        this.notifySuccessfulAction("Storeroom created successfully");
       }).catch(error => console.error(error));
     },
-    updateDeposit() {
-      this.depositService.update(this.deposit.id, this.deposit).then(response => {
-        console.log('updateDeposit');
-        let index = this.findIndexById(this.deposit.id);
-        this.deposits[index] = new Deposit(response.data);
-        console.log(this.deposits);
-        this.notifySuccessfulAction("Category updated successfully");
+    updateStoreroom() {
+      this.storeroomService.update(this.storeroom.id, this.storeroom).then(response => {
+        console.log('updateStoreroom');
+        let index = this.findIndexById(this.storeroom.id);
+        this.storerooms[index] = new Storeroom(response.data);
+        console.log(this.storerooms);
+        this.notifySuccessfulAction("Storeroom updated successfully");
       }).catch(error => console.error(error));
     },
-    deleteDeposit(id) {
-      this.depositService.delete(id).then(() => {
+    deleteStoreroom(id) {
+      this.storeroomService.delete(id).then(() => {
         let index = this.findIndexById(id);
-        this.deposits.splice(index, 1);
-        this.notifySuccessfulAction("Category deleted successfully");
-        this.loadDeposits(); // Recargar la lista de depósitos
+        this.storerooms.splice(index, 1);
+        this.notifySuccessfulAction("Storeroom deleted successfully");
+        this.loadStorerooms(); // Recargar la lista de depósitos
       }).catch(error => console.error(error));
     },
 
     onNewItem() {
-      this.deposit = new Deposit({});
+      this.storeroom = new Storeroom({});
       this.isEdit = false;
       this.createAndEditDialogIsVisible = true;
       console.log(this.createAndEditDialogIsVisible);
     },
-    onEditRequested(deposit) {
-      this.deposit = deposit;
+
+    onEditRequested(storeroom) {
+      this.storeroom = storeroom;
       this.isEdit = true;
       this.createAndEditDialogIsVisible = true;
     },
 
     //Sensor methods
-    onEditRequestedSensor(deposit, sensor, type) {
-      this.deposit = deposit;
+    onEditRequestedSensor(storeroom, sensor, type) {
+      this.storeroom = storeroom;
       this.climateSensor = sensor;
       this.climateSensor.type=type;
       this.isEditSensor = true;
@@ -188,8 +197,8 @@ export default{
     },
 
     //Device methods
-    onEditRequestedDevice(deposit, device, type, unit) {
-      this.deposit = deposit;
+    onEditRequestedDevice(storeroom, device, type, unit) {
+      this.storeroom = storeroom;
       this.enviroDevice = device;
       this.enviroDevice.type=type;
       this.enviroDevice.unit=unit;
@@ -197,21 +206,25 @@ export default{
       this.createAndEditDialogIsVisibleDevice = true;
     }
 
-
-
   },
   beforeRouteEnter(to, from, next) {
     next(vm => {
-      vm.loadDeposits();
+      vm.loadStorerooms();
     });
   }
-};
+}
+
+
+
+
+
+
 </script>
 
 <template>
   <div class="w-full">
     <h1>{{ ('Editor de locales asignados') }}</h1>
-    <p>{{ ('Aqui puede registrar sus depositos y agregarles sensores') }}</p>
+    <p>{{ ('Aqui puede registrar sus almacenes y agregarles sensores') }}</p>
   </div>
 
   <pv-toolbar class="mb-4">
@@ -220,13 +233,13 @@ export default{
     </template>
   </pv-toolbar>
 
-  <deposit-create-and-edit
+
+  <storeroom-create-and-edit
       :edit="isEdit"
-      :item="deposit"
+      :item="storeroom"
       :visible="createAndEditDialogIsVisible"
       v-on:cancel-requested="onCancelRequested"
       v-on:save-requested="onSaveRequested($event)"/>
-
 
   <climate-sensor-create-and-edit
       :edit="isEditSensor"
@@ -234,7 +247,6 @@ export default{
       :visible="createAndEditDialogIsVisibleSensor"
       v-on:cancel-requested="onCancelRequestedSensor"
       v-on:save-requested="onSaveRequestedSensor($event)"/>
-
 
   <enviro-device-create-and-edit
       :edit="isEditDevice"
@@ -244,13 +256,14 @@ export default{
       v-on:save-requested="onSaveRequestedDevice($event)"/>
 
 
-
-
   <div class="container">
-    <deposit-list :deposits="deposits" :deleteDeposit="deleteDeposit" :onEditRequested="onEditRequested"
+    <storeroom-list :storerooms="storerooms" :deleteStoreroom="deleteStoreroom" :onEditRequested="onEditRequested"
                   :onEditRequestedSensor="onEditRequestedSensor"
                   :onEditRequestedDevice="onEditRequestedDevice"/>
   </div>
+
+
+
 
 </template>
 

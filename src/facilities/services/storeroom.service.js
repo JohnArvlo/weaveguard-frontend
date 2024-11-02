@@ -1,7 +1,7 @@
 import http from "../../shared/services/http-common.js"
 
-export class DepositService {
-    resourceEndpoint = '/deposits';
+export class StoreroomService {
+    resourceEndpoint = '/storerooms';
 
     getAll() {
         return http.get(this.resourceEndpoint);
