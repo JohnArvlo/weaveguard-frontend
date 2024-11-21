@@ -10,9 +10,9 @@ export default {
       drawer: false,
       items: [
         { label: 'Inventory', to: '/publishing/categories', icon: 'folder' },
-        { label: 'Environment', to: '/temperature' ,icon: 'sun'},
+        { label: 'Facilities', to: '/management' ,icon: 'sun'},
         { label: 'Reports', to: '/reportes-y-analisis', icon: 'chart-line' },
-        { label: 'Maintenance', to: '/management', icon: 'wrench' },
+
       ]
     }
   },
@@ -46,6 +46,12 @@ export default {
         </div>
       </template>-->
       <template #end>
+        <router-link to="/sign-in">
+          <pv-button class="toolbar-icon" id="sign-in-icon">Sign In</pv-button>
+        </router-link>
+        <router-link to="/sign-up">
+          <pv-button class="toolbar-icon" id="sign-up-icon">Sign Up</pv-button>
+        </router-link>
         <pv-button class="toolbar-icon" id="user-icon"><i class="pi pi-user"></i></pv-button>
         <language-switcher/>
       </template>

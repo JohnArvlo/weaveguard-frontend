@@ -1,7 +1,7 @@
 import http from "../../shared/services/http-common.js";
 
 export class FabricService {
-    resourceEndpoint = '/fabrics'; // Cambiado a /fabrics
+    resourceEndpoint = 'api/v1/fabrics'; // Cambiado a /fabrics
 
     getAll() {
         return http.get(this.resourceEndpoint);

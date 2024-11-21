@@ -3,11 +3,11 @@ export class Thermometer {
                     id = '',
                     name = '',
                     model = '',
-                    storeroom = ''
+                    warehouseId = ''
                 }) {
         this.id = id;
         this.name = name;
         this.model = model;
-        this.storeroom = storeroom;
+        this.warehouseId = warehouseId;
     }
 }

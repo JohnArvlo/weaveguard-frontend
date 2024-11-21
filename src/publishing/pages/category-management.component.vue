@@ -112,37 +112,115 @@ export default {
 </script>
 
 <template>
-  <div class="w-full">
-    <h3>{{ $t('inventory.manage') }}</h3>
+  <div class="fabric-management">
+    <h3 class="title">{{ $t('inventory.manage') }}</h3>
     <data-manager
         :title="title"
         v-bind:items="fabrics"
-    v-on:new-item-requested="onNewItem"
-    v-on:edit-item-requested="onEditItem($event)"
-    v-on:delete-item-requested="onDeleteItem($event)"
-    v-on:delete-selected-items-requested="onDeleteSelectedItems($event)"
+        v-on:new-item-requested="onNewItem"
+        v-on:edit-item-requested="onEditItem($event)"
+        v-on:delete-item-requested="onDeleteItem($event)"
+        v-on:delete-selected-items-requested="onDeleteSelectedItems($event)"
+        class="data-container"
     >
-    <template #custom-columns>
-      <pv-column :sortable="true" field="id" header="ID" style="min-width: 12rem" />
-      <pv-column :sortable="true" field="code" :header="$t('inventory.code')" style="min-width: 24rem" /> <!-- Agregado -->
-      <pv-column :sortable="true" field="name" :header="$t('inventory.name')" style="min-width: 24rem" />
-      <pv-column :sortable="true" field="storeroomId" :header="$t('inventory.storeroom')" style="min-width: 24rem" /> <!-- Cambiado a storeroomId -->
-      <pv-column :sortable="true" field="categoryId" :header="$t('inventory.category')" style="min-width: 24rem" /> <!-- Cambiado a categoryId -->
-      <pv-column :sortable="true" field="quantity" :header="$t('inventory.quantity')" style="min-width: 24rem" />
-    </template>
+      <template #custom-columns>
+        <pv-column :sortable="true" field="id" header="ID" class="column" />
+
+        <pv-column :sortable="true" field="name" :header="$t('inventory.name')" class="column" />
+        <pv-column :sortable="true" field="warehouseId" :header="$t('inventory.warehouse')" class="column" />
+        <pv-column :sortable="true" field="categoryId" :header="$t('inventory.category')" class="column" />
+        <pv-column :sortable="true" field="quantity" :header="$t('inventory.quantity')" class="column" />
+      </template>
     </data-manager>
     <fabric-create-and-edit-dialog
         :edit="isEdit"
         :item="fabric"
-    :visible="createAndEditDialogIsVisible"
-    v-on:cancel-requested="onCancelRequested"
-    v-on:save-requested="onSaveRequested($event)"
+        :visible="createAndEditDialogIsVisible"
+        v-on:cancel-requested="onCancelRequested"
+        v-on:save-requested="onSaveRequested($event)"
+        class="dialog"
     />
   </div>
 </template>
 
 <style scoped>
-.w-full {
-  padding: 3rem;
+/* Variables para diseño moderno */
+:root {
+  --primary-color: #1f2937; /* Gris oscuro */
+  --secondary-color: #4b5563; /* Gris medio */
+  --accent-color: #3b82f6; /* Azul eléctrico */
+  --background-color: #111827; /* Fondo oscuro */
+  --text-color: #f9fafb; /* Blanco */
+  --border-radius: 12px;
+  --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.fabric-management {
+  background-color: var(--background-color);
+  color: var(--text-color);
+  padding: 2rem;
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.title {
+  font-family: 'Inter', sans-serif;
+  font-size: 2rem;
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: 2rem;
+  color: var(--accent-color);
+}
+
+.data-container {
+  background-color: var(--primary-color);
+  border-radius: var(--border-radius);
+  padding: 1.5rem;
+  box-shadow: var(--box-shadow);
+}
+
+.column {
+  text-align: left;
+  color: var(--text-color);
+  font-family: 'Inter', sans-serif;
+  font-size: 1rem;
+}
+
+.dialog {
+  padding: 1rem;
+  background: var(--secondary-color);
+  border-radius: var(--border-radius);
+}
+
+button {
+  background-color: var(--accent-color);
+  color: var(--text-color);
+  font-family: 'Inter', sans-serif;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+}
+
+button:focus {
+  outline: 2px solid var(--accent-color);
+}
+
+@media (max-width: 768px) {
+  .fabric-management {
+    padding: 1rem;
+  }
+
+  .title {
+    font-size: 1.5rem;
+  }
 }
 </style>

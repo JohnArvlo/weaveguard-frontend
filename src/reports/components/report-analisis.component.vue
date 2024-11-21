@@ -1,106 +1,83 @@
-<script>
-import LineChartComponent from "../../shared/components/line-chart.component.vue";
-import axios from 'axios';
-
-export default {
-  components: {
-    LineChartComponent,
-  },
-  data() {
-    return {
-      selectedWarehouse: null,
-      warehouses: [],
-      irregularities: 'No se encontraron irregularidades',
-      temperatureData: {
-        labels: ['Actual'],
-        datasets: [
-          {
-            label: 'Temperatura (°C)',
-            backgroundColor: 'rgba(54, 162, 235, 0.2)',
-            borderColor: 'rgba(54, 162, 235, 1)',
-            data: [],
-          },
-          {
-            label: 'Humedad (%)',
-            backgroundColor: 'rgba(255, 99, 132, 0.2)',
-            borderColor: 'rgba(255, 99, 132, 1)',
-            data: [],
-          },
-        ],
-      },
-      chartOptions: {
-        responsive: true,
-        scales: {
-          y: {
-            beginAtZero: true,
-          },
-        },
-      },
-    };
-  },
-  watch: {
-    selectedWarehouse(newWarehouse) {
-      this.updateChartData(newWarehouse);
-    },
-  },
-  methods: {
-    async fetchWarehouses() {
-      try {
-        const response = await axios.get('/server/db.json');
-        this.warehouses = response.data.storerooms;
-      } catch (error) {
-        console.error('Error fetching warehouses:', error);
-      }
-    },
-    updateChartData(warehouse) {
-      if (warehouse && warehouse.temperatura && warehouse.humedad) {
-        this.temperatureData.datasets[0].data = [warehouse.temperatura.actual];
-        this.temperatureData.datasets[1].data = [warehouse.humedad.actual];
-      } else {
-        console.error('Datos de temperatura o humedad no encontrados para el almacén seleccionado');
-      }
-    },
-  },
-  created() {
-    this.fetchWarehouses();
-  },
-};
-</script>
-
 <template>
-  <div class="report-analysis">
-    <h2>{{ $t('report.analysis') }}</h2>
-
-    <!-- Sección de Informes por almacén -->
-    <section>
-      <h3>{{ $t('report.byWarehouse') }}</h3>
-      <div>
-        <label>{{ $t('inventory.storeroom') }}: </label>
-        <select v-model="selectedWarehouse">
-          <option v-for="warehouse in warehouses" :key="warehouse.id" :value="warehouse">
-            {{ warehouse.nombre}}
-          </option>
-        </select>
-      </div>
-      <p>{{ $t('report.irregularities') }}: {{ irregularities }}</p>
-    </section>
-
-    <!-- Sección de Tendencias con gráfico de líneas -->
-    <section>
-      <h3>{{ $t('report.trends') }}</h3>
-      <line-chart-component :chartData="temperatureData" :chartOptions="chartOptions"/>
-    </section>
-
-    <!-- Sección de Optimización de recursos -->
-    <section>
-      <h3>{{ $t('report.resourceOptimization') }}</h3>
-      <p>{{ $t('report.optimizationAnalysis') }}</p>
-    </section>
+  <div>
+    <h1>Report Analysis</h1>
+    <line-chart ref="lineChart" />
+    <button @click="saveReport">Guardar Reporte</button>
+    <button @click="loadReports">Cargar Reportes</button>
+    <div v-if="reports.length > 0">
+      <h3>Selecciona un reporte:</h3>
+      <ul>
+        <li v-for="report in reports" :key="report.id">
+          <button @click="loadReport(report.id)">Reporte ID: {{ report.id }}</button>
+        </li>
+      </ul>
+    </div>
   </div>
 </template>
 
-<style scoped>
-.report-analysis {
-  padding: 40px;
-}
-</style>
+<script>
+import LineChart from "../../shared/components/line-chart.component.vue";
+import reportService from "../../reports/services/report.service.js";
+import { Report } from "../model/report.entity.js";
+
+export default {
+  name: "ReportAnalysis",
+  components: {
+    LineChart,
+  },
+  data() {
+    return {
+      reports: [], // Lista de reportes guardados
+      nextReportId: 1, // ID del próximo reporte
+    };
+  },
+  methods: {
+    async saveReport() {
+      try {
+        const chartData = this.$refs.lineChart.getChartData();
+        const report = new Report({
+          id: this.nextReportId, // Usar el próximo ID
+          fabricsData: chartData.fabricsData,
+          enviroDevicesData: chartData.enviroDevicesData,
+          climateSensorsData: chartData.climateSensorsData,
+        });
+
+        await reportService.saveReport(report);
+        this.nextReportId++; // Incrementar el ID para el próximo reporte
+        alert("Reporte guardado exitosamente.");
+      } catch (error) {
+        console.error("Error al guardar el reporte:", error);
+        alert("Hubo un error al guardar el reporte.");
+      }
+    },
+
+    async loadReports() {
+      try {
+        const response = await reportService.getReports();
+        this.reports = response.data; // Asignar los reportes a la lista
+        this.nextReportId = this.reports.length + 1; // Ajustar el próximo ID basado en la cantidad de reportes existentes
+      } catch (error) {
+        console.error("Error al cargar los reportes:", error);
+        alert("Hubo un error al cargar los reportes.");
+      }
+    },
+
+    async loadReport(reportId) {
+      try {
+        const response = await reportService.getReportById(reportId);
+        const report = response.data;
+
+        // Actualizar la gráfica con los datos del reporte seleccionado
+        this.$refs.lineChart.renderChart(
+            report.fabricsData,
+            report.enviroDevicesData,
+            report.climateSensorsData
+        );
+      } catch (error) {
+        console.error("Error al cargar el reporte:", error);
+        alert("Hubo un error al cargar el reporte.");
+      }
+    },
+  },
+};
+</script>

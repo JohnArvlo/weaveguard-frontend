@@ -7,11 +7,11 @@ export class AssignedFabric{
         {
             id=0,
             fabricType= new FabricType({}),
-            storeroomId=''
+            warehouseId=''
         }
     ) {
         this.id=id;
         this.fabricType=fabricType;
-        this.storeroomId=storeroomId;
+        this.warehouseId=warehouseId;
     }
 }

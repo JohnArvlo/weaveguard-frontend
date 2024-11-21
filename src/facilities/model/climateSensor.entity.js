@@ -6,7 +6,7 @@ export class ClimateSensor{
             model='',
             type='',
             image='',
-            storeroomId=''
+            warehouseId=''
         }
     ) {
         this.id = id;
@@ -14,6 +14,6 @@ export class ClimateSensor{
         this.model = model;
         this.type = type;
         this.image = image;
-        this.storeroomId = storeroomId;
+        this.warehouseId = warehouseId;
     }
 }

@@ -1,61 +1,50 @@
 <script>
-import {Storeroom} from "../model/storeroom.entity.js";
-import {StoreroomService} from "../services/storeroom.service.js";
-import StoreroomList from "../components/storeroom-list.component.vue";
-
-import StoreroomCreateAndEdit from "../components/storeroom-create-and-edit.component.vue";
+import {Warehouse} from "../model/warehouse.entity.js";
+import {WarehouseService} from "../services/warehouse.service.js";
+import WarehouseList from "../components/warehouse-list.component.vue";
+import WarehouseCreateAndEdit from "../components/warehouse-create-and-edit.component.vue";
 import {ClimateSensor} from "../model/climateSensor.entity.js";
 import ClimateSensorCreateAndEdit from "../components/climateSensor-create-and-edit.vue";
 import EnviroDeviceCreateAndEdit from "../components/enviroDevice-create-and-edit.component.vue";
 import {EnviroDevice} from "../model/enviroDevice.entity.js";
 
-
-
-
-
 export default {
-  name: "storeroom-management",
+  name: "warehouse-management",
   components: {
     EnviroDeviceCreateAndEdit,
-    ClimateSensorCreateAndEdit, StoreroomCreateAndEdit, StoreroomList
+    ClimateSensorCreateAndEdit,
+    WarehouseCreateAndEdit,
+    WarehouseList
   },
 
   data() {
     return {
-      storeroom: new Storeroom({}),
+      warehouse: new Warehouse({}),
       climateSensor: new ClimateSensor({}),
       enviroDevice: new EnviroDevice({}),
-      storerooms: [],
-      //Sensor
+      warehouses: [],
       sensors: [],
-      storeroomService: null,
+      warehouseService: null,
       createAndEditDialogIsVisible: false,
       isEdit: false,
-      //Sensor Dialog
       isEditSensor: false,
       createAndEditDialogIsVisibleSensor: false,
-
-      //Device Dialog
       devices: [],
       createAndEditDialogIsVisibleDevice: false,
       isEditDevice: false,
-
     }
   },
   created() {
-    this.storeroomService = new StoreroomService();
-    this.loadStorerooms();
+    this.warehouseService = new WarehouseService();
+    this.loadWarehouses();
   },
   methods: {
     findIndexById(id) {
-      return this.storerooms.findIndex((category) => category.id === id);
+      return this.warehouses.findIndex((category) => category.id === id);
     },
-    loadStorerooms()
-    {
-      this.storeroomService.getAll().then(response => {
-        console.log(response.data);
-        this.storerooms = response.data.map(storeroom => new Storeroom(storeroom));
-        console.log(this.storerooms);
+    loadWarehouses() {
+      this.warehouseService.getAll().then(response => {
+        this.warehouses = response.data.map(warehouse => new Warehouse(warehouse));
       }).catch(error => console.error(error));
     },
     onCancelRequested() {
@@ -63,23 +52,17 @@ export default {
       this.submitted = false;
       this.isEdit = false;
     },
-    //Sensor methods
     onCancelRequestedSensor() {
       this.createAndEditDialogIsVisibleSensor = false;
       this.submittedSensor = false;
       this.isEditSensor = false;
     },
-
-    //Device methods
     onCancelRequestedDevice() {
       this.createAndEditDialogIsVisibleDevice = false;
       this.submittedDevice = false;
       this.isEditDevice = false;
     },
-
-    //Sensor methods
     onSaveRequestedSensor(item) {
-      console.log('onSaveRequestedSensor');
       this.submittedSensor = true;
       if (item.name.trim()) {
         this.climateSensor = item;
@@ -92,10 +75,7 @@ export default {
         this.isEditSensor = false;
       }
     },
-
-    //Device methods
     onSaveRequestedDevice(item) {
-      console.log('onSaveRequestedDevice');
       this.submittedDevice = true;
       if (item.name.trim()) {
         this.enviroDevice = item;
@@ -108,117 +88,105 @@ export default {
         this.isEditDevice = false;
       }
     },
-
-    //Sensor methods
     createClimateSensor() {
-      console.log(this.storeroom.id);
-      console.log(this.climateSensor);
-      this.climateSensor.storeroomId = toString(this.storeroom.id);
-      console.log(this.storeroom.id);
-      console.log(this.climateSensor);
-      this.storeroomService.createClimateSensor(this.storeroom.id, this.climateSensor).then(response => {
+      this.climateSensor.warehouseId = this.warehouse.id.toString();
+      this.warehouseService.createClimateSensor(this.warehouse.id, this.climateSensor).then(response => {
         let climateSensor = new ClimateSensor(response.data);
         this.sensors.push(climateSensor);
-        this.loadStorerooms(); // Reload
-
+        this.loadWarehouses();
       }).catch(error => console.error(error));
     },
-
-    //Device methods
-    createEnviroDevice(){
-      this.enviroDevice.storeroomId = toString(this.storeroom.id);
-      this.storeroomService.createEnviroDevice(this.storeroom.id, this.enviroDevice).then(response => {
+    createEnviroDevice() {
+      this.enviroDevice.warehouseId = this.warehouse.id.toString();
+      this.warehouseService.createEnviroDevice(this.warehouse.id, this.enviroDevice).then(response => {
         let enviroDevice = new EnviroDevice(response.data);
         this.devices.push(enviroDevice);
-        this.loadStorerooms(); // Reload
+        this.loadWarehouses();
       }).catch(error => console.error(error));
     },
-
     onSaveRequested(item) {
-      console.log('onSaveRequested');
       this.submitted = true;
-      if (this.storeroom.name.trim()) {
+      if (this.warehouse.name.trim()) {
         if (item.id) {
-          this.updateStoreroom();
+          this.updateWarehouse();
         } else {
-          this.createStoreroom();
+          this.createWarehouse();
         }
         this.createAndEditDialogIsVisible = false;
         this.isEdit = false;
       }
     },
+    createWarehouse() {
+      const warehouseData = {
+        name: this.warehouse.name,
+        location: this.warehouse.location,
+        description: this.warehouse.description,
+        capacity: this.warehouse.capacity,
+        phone: this.warehouse.phone,
+        email: this.warehouse.email,
+        actualTemperature: this.warehouse.actualTemperature,
+        maximumTemperature: this.warehouse.maximumTemperature,
+        minimumTemperature: this.warehouse.minimumTemperature,
+        temperatureUnit: this.warehouse.temperatureUnit,
+        actualHumidity: this.warehouse.actualHumidity,
+        maximumHumidity: this.warehouse.maximumHumidity,
+        minimumHumidity: this.warehouse.minimumHumidity,
+        humidityUnit: this.warehouse.humidityUnit,
+      };
 
-    // Service client methods
-    createStoreroom() {
-      this.storeroomService.create(this.storeroom).then(response => {
-        let storeroom = new Storeroom(response.data);
-        this.storerooms.push(storeroom);
-        this.notifySuccessfulAction("Storeroom created successfully");
+      this.warehouseService.create(warehouseData).then(response => {
+        let warehouse = new Warehouse(response.data);
+        this.warehouses.push(warehouse);
+        this.notifySuccessfulAction("Warehouse created successfully");
+      }).catch(error => console.error('Error al crear el almacén:', error.response.data));
+    },
+    updateWarehouse() {
+      this.warehouseService.update(this.warehouse.id, this.warehouse).then(response => {
+        let index = this.findIndexById(this.warehouse.id);
+        this.warehouses[index] = new Warehouse(response.data);
+        this.notifySuccessfulAction("Warehouse updated successfully");
       }).catch(error => console.error(error));
     },
-    updateStoreroom() {
-      this.storeroomService.update(this.storeroom.id, this.storeroom).then(response => {
-        console.log('updateStoreroom');
-        let index = this.findIndexById(this.storeroom.id);
-        this.storerooms[index] = new Storeroom(response.data);
-        console.log(this.storerooms);
-        this.notifySuccessfulAction("Storeroom updated successfully");
-      }).catch(error => console.error(error));
-    },
-    deleteStoreroom(id) {
-      this.storeroomService.delete(id).then(() => {
+    deleteWarehouse(id) {
+      this.warehouseService.delete(id).then(() => {
         let index = this.findIndexById(id);
-        this.storerooms.splice(index, 1);
-        this.notifySuccessfulAction("Storeroom deleted successfully");
-        this.loadStorerooms(); // Recargar la lista de depósitos
+        this.warehouses.splice(index, 1);
+        this.notifySuccessfulAction("Warehouse deleted successfully");
+        this.loadWarehouses();
       }).catch(error => console.error(error));
     },
-
     onNewItem() {
-      this.storeroom = new Storeroom({});
+      this.warehouse = new Warehouse({});
       this.isEdit = false;
       this.createAndEditDialogIsVisible = true;
-      console.log(this.createAndEditDialogIsVisible);
     },
-
-    onEditRequested(storeroom) {
-      this.storeroom = storeroom;
+    onEditRequested(warehouse) {
+      this.warehouse = warehouse;
       this.isEdit = true;
       this.createAndEditDialogIsVisible = true;
     },
-
-    //Sensor methods
-    onEditRequestedSensor(storeroom, sensor, type) {
-      this.storeroom = storeroom;
+    onEditRequestedSensor(warehouse, sensor, type) {
+      this.warehouse = warehouse;
       this.climateSensor = sensor;
-      this.climateSensor.type=type;
+      this.climateSensor.type = type;
       this.isEditSensor = true;
       this.createAndEditDialogIsVisibleSensor = true;
     },
-
-    //Device methods
-    onEditRequestedDevice(storeroom, device, type, unit) {
-      this.storeroom = storeroom;
+    onEditRequestedDevice(warehouse, device, type, unit) {
+      this.warehouse = warehouse;
       this.enviroDevice = device;
-      this.enviroDevice.type=type;
-      this.enviroDevice.unit=unit;
+      this.enviroDevice.type = type;
+      this.enviroDevice.unit = unit;
       this.isEditDevice = true;
       this.createAndEditDialogIsVisibleDevice = true;
     }
-
   },
   beforeRouteEnter(to, from, next) {
     next(vm => {
-      vm.loadStorerooms();
+      vm.loadWarehouses();
     });
   }
 }
-
-
-
-
-
-
 </script>
 
 <template>
@@ -230,13 +198,15 @@ export default {
   <pv-toolbar class="mb-4">
     <template #start>
       <pv-button class="mr-2" icon="pi pi-plus" label="New" severity="success" @click="onNewItem"/>
+      <router-link to="/temperature">
+        <pv-button class="mr-2" icon="pi pi-thermometer" label="Environment" severity="info"/>
+      </router-link>
     </template>
   </pv-toolbar>
 
-
-  <storeroom-create-and-edit
+  <warehouse-create-and-edit
       :edit="isEdit"
-      :item="storeroom"
+      :item="warehouse"
       :visible="createAndEditDialogIsVisible"
       v-on:cancel-requested="onCancelRequested"
       v-on:save-requested="onSaveRequested($event)"/>
@@ -255,18 +225,15 @@ export default {
       v-on:cancel-requested="onCancelRequestedDevice"
       v-on:save-requested="onSaveRequestedDevice($event)"/>
 
-
   <div class="container">
-    <storeroom-list :storerooms="storerooms" :deleteStoreroom="deleteStoreroom" :onEditRequested="onEditRequested"
-                  :onEditRequestedSensor="onEditRequestedSensor"
-                  :onEditRequestedDevice="onEditRequestedDevice"/>
+    <warehouse-list
+        :warehouses="warehouses"
+        :deleteWarehouse="deleteWarehouse"
+        :onEditRequested="onEditRequested"
+        :onEditRequestedSensor="onEditRequestedSensor"
+        :onEditRequestedDevice="onEditRequestedDevice"/>
   </div>
-
-
-
-
 </template>
-
 <style scoped>
 .container {
   max-width: 1200px;
@@ -275,24 +242,44 @@ export default {
   background-color: #f9f9f9;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease-in-out;
+}
+
+.container:hover {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
 h1 {
   font-size: 2rem;
   color: #333;
   margin-bottom: 10px;
+  transition: color 0.3s ease-in-out;
+}
+
+h1:hover {
+  color: #00e676; /* Neon green color on hover */
 }
 
 p {
   font-size: 1.1rem;
   color: #666;
   margin-bottom: 20px;
+  transition: color 0.3s ease-in-out;
+}
+
+p:hover {
+  color: #00e676; /* Neon green color on hover */
 }
 
 .pv-toolbar {
   background-color: #4CAF50; /* Toolbar background color */
   padding: 10px;
   border-radius: 4px;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.pv-toolbar:hover {
+  background-color: #388E3C; /* Darker shade on hover */
 }
 
 .pv-button {
@@ -302,11 +289,12 @@ p {
   border-radius: 4px;
   padding: 10px 20px;
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: background-color 0.3s, transform 0.3s;
 }
 
 .pv-button:hover {
   background-color: #005f73; /* Darker shade on hover */
+  transform: scale(1.05); /* Slightly enlarge on hover */
 }
 
 .mb-4 {
@@ -315,9 +303,14 @@ p {
 
 .deposit-list {
   margin-top: 20px; /* Space above the deposit list */
-  border: 1px solid #ddd; /* Border around the list */
+  border: 1px solid #ddd; /* Border zaround the list */
   border-radius: 4px;
   overflow: hidden;
+  transition: border-color 0.3s ease-in-out;
+}
+
+.deposit-list:hover {
+  border-color: #00e676; /* Neon green border on hover */
 }
 
 .deposit-list tr {
@@ -331,15 +324,27 @@ p {
 .dialog {
   border-radius: 8px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  transition: box-shadow 0.3s ease-in-out;
+}
+
+.dialog:hover {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
 }
 
 .dialog-header {
   background-color: #4CAF50;
   color: white;
   padding: 10px;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.dialog-header:hover {
+  background-color: #388E3C; /* Darker shade on hover */
 }
 
 .dialog-content {
   padding: 20px;
 }
+
+
 </style>

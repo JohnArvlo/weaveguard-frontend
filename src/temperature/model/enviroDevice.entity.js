@@ -5,9 +5,9 @@ export class EnviroDevice{
             name = '',
             model='',
             value=0,
-            type='',
+            type=0,
             unit='',
-            storeroomId=''
+            warehouseId=''
 
         }
     ) {
@@ -17,6 +17,6 @@ export class EnviroDevice{
         this.value=value;
         this.type=type;
         this.unit=unit;
-        this.storeroomId=storeroomId;
+        this.warehouseId=warehouseId;
     }
 }

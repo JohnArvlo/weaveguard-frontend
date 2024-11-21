@@ -1,8 +1,15 @@
 export class Report {
-    constructor({ id, nombre, temperatura, humedad }) {
+    constructor({
+                    id = 0,
+                    date = new Date().toISOString(),
+                    fabricsData = [],
+                    enviroDevicesData = [],
+                    climateSensorsData = [],
+                }) {
         this.id = id;
-        this.nombre = nombre;
-        this.temperatura = temperatura;
-        this.humedad = humedad;
+        this.date = date;
+        this.fabricsData = fabricsData;
+        this.enviroDevicesData = enviroDevicesData;
+        this.climateSensorsData = climateSensorsData;
     }
 }
